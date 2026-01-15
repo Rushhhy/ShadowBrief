@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "ShadowBrief",
+  "version": "0.1",
+  "description": "Send articles to ShadowBrief for belief tracking",
+
+  "permissions": ["activeTab", "scripting"],
+  "host_permissions": [
+    "http://127.0.0.1:8000/*",
+    "http://*/*",
+    "https://*/*"
+  ],
+
+  "icons": {
+    "128": "icons/icon128.png"
+  },
+
+  "action": {
+    "default_title": "Send to ShadowBrief"
+  },
+
+  "background": {
+    "service_worker": "background.js"
+  }
+}
