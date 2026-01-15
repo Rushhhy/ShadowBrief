@@ -1,6 +1,6 @@
 # ShadowBrief
 
-ShadowBrief is a local-first application for **understanding news articles and tracking how your beliefs evolve over time**.
+ShadowBrief is a browser extension + local app for **understanding news articles and tracking how your beliefs evolve over time**.
 
 Instead of passively consuming news, ShadowBrief extracts the core argument of an article, lets you record your stance (agree / disagree / unsure), and aggregates those stances into a **Belief Ledger** that summarizes what you believe, by topic, and how strongly.
 
