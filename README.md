@@ -49,9 +49,12 @@ The Belief Ledger makes belief formation explicit, inspectable, and revisable.
 
 <img width="1919" height="910" alt="Screenshot 2026-01-14 235317" src="https://github.com/user-attachments/assets/fb335034-5a4e-4e95-a8c1-840ea9030b2c" />
 
-Extract the claim of the article and wait for user stance. User input's Agree, which gets saved in Belief History for the topic (trade)
+Extract the claim of the article and wait for user stance.
 
 <img width="1919" height="909" alt="Screenshot 2026-01-14 235407" src="https://github.com/user-attachments/assets/ab08e389-0a0d-4f88-9db7-8198109f1a35" />
+
+ User input's Agree, which gets saved in Belief History for the topic (trade)
+
 **Article 2**
 
 <img width="1919" height="908" alt="Screenshot 2026-01-14 235510" src="https://github.com/user-attachments/assets/40ba1e51-23f2-40b3-bd5b-23f58a90106e" />
