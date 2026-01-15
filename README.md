@@ -46,17 +46,26 @@ The Belief Ledger makes belief formation explicit, inspectable, and revisable.
 
 ## User Flow
 **Article 1**
+
 <img width="1919" height="910" alt="Screenshot 2026-01-14 235317" src="https://github.com/user-attachments/assets/fb335034-5a4e-4e95-a8c1-840ea9030b2c" />
+
 Extract the claim of the article and wait for user stance. User input's Agree, which gets saved in Belief History for the topic (trade)
+
 <img width="1919" height="909" alt="Screenshot 2026-01-14 235407" src="https://github.com/user-attachments/assets/ab08e389-0a0d-4f88-9db7-8198109f1a35" />
 **Article 2**
+
 <img width="1919" height="908" alt="Screenshot 2026-01-14 235510" src="https://github.com/user-attachments/assets/40ba1e51-23f2-40b3-bd5b-23f58a90106e" />
+
 Article 2 presents a claim that is contradictory to the user's previously saved stance (in Article 1). The contradiction is shown in the "Where you stand" section. 
+
 <img width="1919" height="911" alt="Untitled" src="https://github.com/user-attachments/assets/38db7bda-41a7-4a61-aaad-8add5bae874a" />
+
 User agrees to contradictory proposition and is alerted of a possible conflict.
 
 **Belief Ledger - Trade section**
+
 <img width="1919" height="910" alt="Screenshot 2026-01-15 000040" src="https://github.com/user-attachments/assets/b0070eee-dfb2-4d59-9fa6-887d4140dde2" />
+
 The user's belief is summarized, whether they are consistent or not. A drift in beliefs is detected due to the contradictory stances.
 
 ## Tech Stack
