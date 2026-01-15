@@ -1,9 +1,23 @@
+# Environment variables
 .env
-shadowbrief.db
-__pycache__/
-*.pyc
-.venv/shadowbrief-ui/node_modules/
-shadowbrief-ui/dist/
-shadowbrief-ui/.vite/
 shadowbrief-ui/.env
 shadowbrief-ui/.env.*
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Database / local state
+shadowbrief.db
+*.sqlite
+*.sqlite3
+
+# Frontend (Vite / React)
+shadowbrief-ui/node_modules/
+shadowbrief-ui/dist/
+shadowbrief-ui/.vite/
+
+# OS
+.DS_Store
+Thumbs.db
