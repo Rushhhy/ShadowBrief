@@ -1,0 +1,607 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+:root{
+  --bg0: #0b1020;
+  --bg1: #0f1630;
+  --card: #111a36;
+  --border: rgba(255,255,255,0.08);
+
+  --text: rgba(255,255,255,0.92);
+  --muted: rgba(255,255,255,0.68);
+
+  --accent: #8b5cf6;
+  --green: #22c55e;
+  --red: #ef4444;
+  --amber: #f59e0b;
+
+  --shadow: 0 18px 44px rgba(0,0,0,0.55);
+  --shadow2: 0 12px 26px rgba(0,0,0,0.38);
+
+  --r: 16px;
+
+  --pagePadBottom: 45px;
+}
+
+/* Fix overflow + ensure padding doesn't expand widths */
+*,
+*::before,
+*::after{
+  box-sizing: border-box;
+}
+
+html, body, #root{
+  height: 100%;
+}
+
+html, body{
+  margin: 0;
+  width: 100%;
+}
+
+/* IMPORTANT: kill page scrolling so we never get "white extra page" */
+body{
+  color: var(--text);
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+
+  overflow: hidden; /* <-- key change */
+  overflow-x: hidden;
+
+  background:
+    radial-gradient(900px 520px at 20% -10%, rgba(139,92,246,0.20), transparent 55%),
+    radial-gradient(900px 520px at 100% 0%, rgba(96,165,250,0.14), transparent 55%),
+    linear-gradient(180deg, var(--bg1) 0%, var(--bg0) 55%, #070b16 100%);
+}
+
+/* root also keeps the same bg in case browser does weirdness */
+#root{
+  min-height: 100%;
+  background:
+    radial-gradient(900px 520px at 20% -10%, rgba(139,92,246,0.20), transparent 55%),
+    radial-gradient(900px 520px at 100% 0%, rgba(96,165,250,0.14), transparent 55%),
+    linear-gradient(180deg, var(--bg1) 0%, var(--bg0) 55%, #070b16 100%);
+}
+
+/* App container becomes the "page" */
+.wrap{
+  width: 100%;
+  max-width: none;
+
+  /* IMPORTANT: full viewport, no body scrolling */
+  height: 100vh;
+  overflow: hidden;
+
+  /* IMPORTANT: apply safe-area/top breathing room HERE, not on body */
+  padding-top: max(14px, env(safe-area-inset-top));
+
+  /* keep your side padding and bottom pad */
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-bottom: var(--pagePadBottom);
+
+  /* layout: header stays, content area gets the remaining height */
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Top bar */
+.topbar{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: rgba(17,26,54,0.65);
+  border: 1px solid rgba(255,255,255,0.10);
+  box-shadow: var(--shadow2);
+  backdrop-filter: blur(10px);
+
+  /* IMPORTANT: keep header visible while inner content scrolls */
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.topActions{
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.topBtn{
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.04);
+  color: rgba(255,255,255,0.90);
+  padding: 10px 12px;
+  border-radius: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease, transform .10s ease;
+}
+
+.topBtn:hover{
+  background: rgba(139,92,246,0.10);
+  border-color: rgba(139,92,246,0.25);
+  transform: translateY(-1px);
+}
+
+.topBtn:disabled{
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.ledgerChips{
+  display: inline-flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+/* Brand (icon + title) */
+.brand{
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brandIcon{
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 10px rgba(139,92,246,0.45));
+}
+
+h1{
+  margin: 0;
+  font-size: 42px;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+h2{
+  margin: 0 0 12px 0;
+  font-size: 20px;
+  letter-spacing: -0.015em;
+  color: rgba(255,255,255,0.92);
+}
+
+/* Main two-column layout */
+.main2col{
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 580px;
+  gap: 12px;
+  align-items: start;
+
+  /* IMPORTANT: this is the scroll region parent */
+  flex: 1;
+  min-height: 0; /* required so children can scroll */
+}
+
+/* This is the column that should scroll in Ledger mode */
+.stack{
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  /* IMPORTANT: make THIS scroll, not the page */
+  overflow-y: auto;
+  min-height: 0;
+  padding-right: 6px;
+}
+
+/* Scrollbar styling (same vibe as before) */
+.stack{
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: rgba(139,92,246,0.55) rgba(255,255,255,0.05);
+}
+.stack::-webkit-scrollbar{
+  width: 10px;
+  height: 10px;
+}
+.stack::-webkit-scrollbar-track{
+  background: rgba(255,255,255,0.04);
+  border-radius: 999px;
+}
+.stack::-webkit-scrollbar-thumb{
+  background: linear-gradient(
+    180deg,
+    rgba(139,92,246,0.75),
+    rgba(96,165,250,0.55)
+  );
+  border-radius: 999px;
+  border: 2px solid rgba(17,26,54,0.90);
+}
+.stack::-webkit-scrollbar-thumb:hover{
+  background: linear-gradient(
+    180deg,
+    rgba(139,92,246,0.92),
+    rgba(96,165,250,0.72)
+  );
+}
+
+.bottomGrid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  align-items: stretch;
+
+  flex: 1;
+  min-height: 0;
+}
+
+/* Cards */
+.card{
+  position: relative;
+  background: linear-gradient(180deg, rgba(17,26,54,0.92), rgba(15,23,51,0.92));
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 18px;
+  box-shadow: var(--shadow2);
+  transition: transform .12s ease, box-shadow .18s ease, border-color .18s ease, filter .18s ease;
+}
+
+.beliefCard{
+  max-height: calc(100vh - 285px - var(--pagePadBottom));
+}
+
+.card:hover{
+  transform: translateY(-2px);
+  border-color: rgba(139,92,246,0.22);
+  box-shadow: 0 18px 52px rgba(0,0,0,0.62);
+  filter: brightness(1.05);
+}
+
+.cardAccent::before{
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 14px;
+  bottom: 14px;
+  width: 4px;
+  border-radius: 999px;
+  background: rgba(139,92,246,0.75);
+  opacity: 0.65;
+}
+
+.cardPrimaryAction{
+  border-color: rgba(139,92,246,0.18);
+}
+
+.cardFill{
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.cardScroll{
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding-right: 6px;
+}
+
+.cardScroll{
+  scrollbar-width: thin;
+  scrollbar-color: rgba(139,92,246,0.55) rgba(255,255,255,0.05);
+}
+
+.cardScroll::-webkit-scrollbar{
+  width: 10px;
+  height: 10px;
+}
+.cardScroll::-webkit-scrollbar-track{
+  background: rgba(255,255,255,0.04);
+  border-radius: 999px;
+}
+.cardScroll::-webkit-scrollbar-thumb{
+  background: linear-gradient(
+    180deg,
+    rgba(139,92,246,0.75),
+    rgba(96,165,250,0.55)
+  );
+  border-radius: 999px;
+  border: 2px solid rgba(17,26,54,0.90);
+}
+.cardScroll::-webkit-scrollbar-thumb:hover{
+  background: linear-gradient(
+    180deg,
+    rgba(139,92,246,0.92),
+    rgba(96,165,250,0.72)
+  );
+}
+
+.headerRow{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.headerTitle{
+  font-size: 18px;
+  font-weight: 750;
+  letter-spacing: -0.015em;
+}
+
+.headerSubRow{
+  margin-top: 10px;
+}
+
+.pill{
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.04);
+  color: rgba(255,255,255,0.88);
+  font-weight: 700;
+}
+
+.pillBig{
+  font-size: 18px;
+  padding: 9px 16px;
+  border-color: rgba(139,92,246,0.26);
+  background: rgba(139,92,246,0.12);
+}
+
+.pill.conviction{
+  border-color: rgba(255,255,255,0.12);
+}
+
+/* Low = amber */
+.pill.conviction.low{
+  border-color: rgba(245,158,11,0.30);
+  background: rgba(245,158,11,0.12);
+  color: rgba(245,158,11,0.98);
+}
+
+/* Medium = purple (accent) */
+.pill.conviction.medium{
+  border-color: rgba(139,92,246,0.34);
+  background: rgba(139,92,246,0.14);
+  color: rgba(255,255,255,0.92);
+}
+
+/* High = green */
+.pill.conviction.high{
+  border-color: rgba(34,197,94,0.30);
+  background: rgba(34,197,94,0.12);
+  color: rgba(34,197,94,0.98);
+}
+
+.k{
+  font-weight: 750;
+  margin-bottom: 8px;
+  color: rgba(255,255,255,0.90);
+}
+
+.muted{
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.err{
+  color: rgba(255,255,255,0.92);
+  margin-top: 10px;
+  padding: 10px 12px;
+  border: 1px solid rgba(239,68,68,0.28);
+  background: rgba(239,68,68,0.10);
+  border-radius: 12px;
+}
+
+a{
+  color: rgba(139,92,246,0.95);
+  text-decoration: none;
+  font-weight: 650;
+}
+a:hover{ text-decoration: underline; }
+
+.section{ margin-bottom: 14px; }
+.section:last-child{ margin-bottom: 0; }
+
+.segmented{
+  display: inline-flex;
+  gap: 0;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.03);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-top: 12px;
+}
+
+.segBtn{
+  border: none;
+  border-right: 1px solid rgba(255,255,255,0.08);
+  background: transparent;
+  padding: 10px 14px;
+  color: rgba(255,255,255,0.88);
+  font-weight: 750;
+  cursor: pointer;
+  transition: background .15s ease;
+}
+.segBtn:last-child{ border-right: none; }
+
+.segBtn:hover{
+  background: rgba(139,92,246,0.10);
+}
+
+.segBtn.active{
+  background: rgba(139,92,246,0.22);
+  color: rgba(255,255,255,0.95);
+}
+
+.segBtn:disabled{
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.primaryBadge{
+  font-weight: 750;
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(139,92,246,0.30);
+  background: rgba(139,92,246,0.12);
+  color: rgba(255,255,255,0.88);
+}
+
+.toast{
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.04);
+  color: rgba(255,255,255,0.90);
+}
+
+.callout{
+  border: 1px solid rgba(139,92,246,0.22);
+  background: rgba(139,92,246,0.10);
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.beliefPanel{
+  min-height: 0;
+}
+
+.beliefItem{
+  padding: 12px 12px;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  margin-bottom: 10px;
+  background: rgba(255,255,255,0.03);
+  cursor: pointer;
+  transition: transform .10s ease, border-color .16s ease, background .16s ease;
+}
+
+.beliefItem:hover{
+  transform: translateY(-1px);
+  border-color: rgba(139,92,246,0.22);
+  background: rgba(139,92,246,0.08);
+}
+
+.beliefMetaRow{
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+}
+.beliefMetaLeft{
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.beliefText{
+  margin-top: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: rgba(255,255,255,0.90);
+  line-height: 1.45;
+}
+.beliefText.expanded{
+  white-space: pre-wrap;
+}
+
+.stance{
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  padding: 3px 9px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.10);
+  display: inline-flex;
+  align-items: center;
+}
+
+.stance.agree{
+  color: rgba(34,197,94,0.95);
+  background: rgba(34,197,94,0.10);
+  border-color: rgba(34,197,94,0.22);
+}
+.stance.disagree{
+  color: rgba(239,68,68,0.95);
+  background: rgba(239,68,68,0.10);
+  border-color: rgba(239,68,68,0.22);
+}
+.stance.unsure{
+  color: rgba(245,158,11,0.95);
+  background: rgba(245,158,11,0.10);
+  border-color: rgba(245,158,11,0.22);
+}
+
+.posChip{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.04);
+  font-weight: 800;
+  width: fit-content;
+}
+.posChip.reinforces{
+  border-color: rgba(34,197,94,0.22);
+  background: rgba(34,197,94,0.10);
+  color: rgba(34,197,94,0.95);
+}
+.posChip.contradicts{
+  border-color: rgba(239,68,68,0.22);
+  background: rgba(239,68,68,0.10);
+  color: rgba(239,68,68,0.95);
+}
+.posChip.partially{
+  border-color: rgba(245,158,11,0.22);
+  background: rgba(245,158,11,0.10);
+  color: rgba(245,158,11,0.95);
+}
+.posChip.unrelated{
+  border-color: rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.04);
+  color: rgba(255,255,255,0.82);
+}
+
+ul{ margin: 8px 0 0 18px; padding: 0; }
+li{ margin: 8px 0; color: rgba(255,255,255,0.86); }
+li::marker{ color: rgba(139,92,246,0.75); }
+
+.leftCol{
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+  max-height: calc(100vh - 285px - var(--pagePadBottom));
+}
+
+.spinnerRow{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.spinner{
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  border: 2px solid rgba(255,255,255,0.12);
+  border-top-color: rgba(139,92,246,0.95);
+  animation: spin 0.9s linear infinite;
+  box-shadow: 0 0 12px rgba(139,92,246,0.22);
+}
+
+.headerTitle{
+  display: flex;
+  align-items: center;
+}
+
+@keyframes spin{
+  to { transform: rotate(360deg); }
+}
