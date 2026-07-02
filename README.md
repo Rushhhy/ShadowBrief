@@ -74,7 +74,8 @@ The user's belief is summarized, whether they are consistent or not. A drift in 
 ## Tech Stack
 **Backend**
 - FastAPI
-- SQLite (local-first storage)
+- SQLite / SQL for local-first storage
+- SQL-backed belief history and topic ledger
 - Deterministic topic system
 - LLM response caching
 
@@ -86,3 +87,15 @@ The user's belief is summarized, whether they are consistent or not. A drift in 
 **LLM Routing**
 - Backboard (multi-provider support)
 - Models can be swapped without changing application logic
+
+## SQL / Data Layer
+
+ShadowBrief uses SQLite as a local-first database to store article history, user stances, topic records, belief history, and cached LLM responses.
+
+The backend includes SQL-backed features for:
+- Saving user votes and article-level belief records
+- Retrieving belief history by topic
+- Supporting the Belief Ledger with topic-level summaries
+- Persisting LLM responses to reduce repeated calls
+
+This data layer allows the app to track how a user’s beliefs evolve over time while keeping the system lightweight and locally stored.
